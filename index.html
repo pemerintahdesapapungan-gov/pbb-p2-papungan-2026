@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>MONITORING PBB-P2 DESA PAPUNGAN 2026</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+
+<style>
+
+.container-fluid{
+    max-width:1800px;
+    margin:auto;
+    padding:12px;
+}
+
+.ranking-card{
+    width: 100%;
+    margin: 0;
+    background:linear-gradient(90deg,#ffd45a,#ff8a00);
+    border-radius:18px;
+    padding:28px;
+    text-align:center;
+    color:#fff;
+    box-shadow:0 8px 25px rgba(0,0,0,.18);
+    margin-top:0px;
+    box-sizing:border-box;
+}
+
+.ranking-card h2{
+    font-size:2rem;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+.ranking-icon{
+    font-size:55px;
+    margin-bottom:10px;
+}
+
+.ranking-number{
+    font-size:70px;
+    font-weight:bold;
+    line-height:1.1;
+}
+
+.ranking-desc{
+    font-size:1.5rem;
+}
+
+.bg-ranking{
+    background:linear-gradient(135deg,#FFD54F,#F57C00);
+}
+
+.header-box{
+    background:linear-gradient(135deg,#0d6efd,#003b99);
+    color:#fff;
+    border-radius:15px;
+    padding:15px 25px;
+    margin:10px 0 15px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    min-height:110px;
+    width: auto;
+}
+
+.judul-header{
+    font-size:2rem;
+    font-weight:700;
+    margin-bottom:8px;
+}
+
+#jam{
+    font-size:1rem;
+    text-align: center;
+}
+
+.logo-kiri img,
+.logo-kanan img{
+    width:75px;
+    height:75px;
+    object-fit:contain;
+}
+
+body{
+    background:#f3f6fb;
+    font-family:Segoe UI, sans-serif;
+}
+
+.header-box{
+    background:linear-gradient(135deg,#0d6efd,#003b99);
+    color:white;
+    border-radius:15px;
+    padding:20px;
+    margin:15px 0;
+
+    
+}
+
+.card-stat{
+    border-radius:15px;
+    padding:18px 18px;
+    min-height:130px;
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+    margin-bottom:18px;
+}
+    .card-stat{
+    transition: transform 0.4s ease,
+                box-shadow 0.4s ease;
+
+    }
+.card-stat:hover{
+    transform:none;
+    box-shadow:0 12px 30px rgba(0,0,0,.25);
+}
+
+
+.bg-target{background:linear-gradient(135deg,#fd0dc1a6,hsl(298, 91%, 42%));}
+.bg-realisasi{background:linear-gradient(135deg,#198754,#146c43);}
+.bg-sisa{background:linear-gradient(135deg,#dc3545,#b02a37);}
+.bg-persen{background:linear-gradient(135deg,#fd7e14,#e8590c);}
+.bg-sppt{background:linear-gradient(135deg,#fd0dc1a6,hsl(298, 91%, 42%));}
+.bg-lunas{background:linear-gradient(135deg,#198754,#146c43);}
+.bg-belum{background:linear-gradient(135deg,#dc3545,#b02a37);}
+.bg-persensppt{background:linear-gradient(135deg,#fd7e14,#e8590c);}
+
+.card-stat h6{
+    font-size:1.05rem;
+    font-weight:600;
+    margin-bottom:15px;
+}
+
+.nilai{
+     font-size:2rem;
+     font-weight:700;
+     color: #f3f6fb;
+
+}
+
+.card-stat h6{
+    color:hsl(0, 0%, 100%);
+    margin-bottom:10px;
+}
+
+.nilai{
+    font-size:26px;
+    font-weight:bold;
+}
+
+.chart-card{
+    background:white;
+    border-radius:12px;
+    padding:20px;
+    box-shadow:0 3px 8px rgba(0,0,0,.08);
+    height:100%;
+}
+
+
+.progress{
+    height:22px;
+}
+
+.progress-bar{
+    font-weight:bold;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container-fluid">
+
+<div class="header-box">
+
+    <div class="logo-kiri">
+        <img src="logo-kab-blitar.png" alt="Logo Kabupaten">
+    </div>
+
+    <div class="judul-header">
+        <h2>MONITORING PEMBAYARAN PBB-P2 DESA PAPUNGAN TAHUN 2026</h2>
+        <div id="jam"></div>
+    </div>
+
+    <div class="logo-kanan">
+        <img src="logo-desa.png" alt="Logo Desa">
+    </div>
+
+</div>
+
+<div class="row g-3">
+
+<div class="col-md-3">
+<div class="card-stat bg-target">
+<h6>Total Target Pajak</h6>
+<div class="nilai" id="totalTarget">Rp 0</div>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card-stat bg-realisasi">
+<h6>Total Terbayar</h6>
+<div class="nilai" id="totalRealisasi">Rp 0</div>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card-stat bg-sisa">
+<h6>Total Belum Terbayar</h6>
+<div class="nilai" id="totalSisa">Rp 0</div>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card-stat bg-persen">
+<h6>Persentase Pembayaran</h6>
+<div class="nilai" id="persenUang">0%</div>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card-stat bg-sppt">
+<h6>Total SPPT</h6>
+<div class="nilai" id="totalSPPT">0</div>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card-stat bg-lunas">
+<h6>SPPT Lunas</h6>
+<div class="nilai" id="spptLunas">0</div>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card-stat bg-belum">
+<h6>SPPT Belum Lunas</h6>
+<div class="nilai" id="spptBelum">0</div>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card-stat bg-persensppt">
+<h6>Persentase SPPT</h6>
+<div class="nilai" id="persenSPPT">0%</div>
+</div>
+</div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-12">
+        <div class="ranking-card">
+            <h2>🏆 PERINGKAT DESA PAPUNGAN TAHUN 2026 🏆</h2>
+
+            <div class="ranking-number">
+                2
+            </div>
+
+            <div class="ranking-desc">
+                Dari 12 Desa se-Kecamatan Kanigoro Kabupaten Blitar
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4 g-3">
+
+    <div class="col-lg-3">
+        <div class="chart-card">
+            <h6 class="text-center fw-bold mb-3">
+                PERSENTASE REALISASI PEMBAYARAN PBB-P2 DESA PAPUNGAN TAHUN 2026
+            </h6>
+            <canvas id="chart1"></canvas>
+        </div>
+    </div>
+
+    <div class="col-lg-3">
+        <div class="chart-card">
+            <h6 class="text-center fw-bold mb-3">
+                PERSENTASE REALISASI SPPT PEMBAYARAN PBB-P2 DESA PAPUNGAN TAHUN 2026
+            </h6>
+            <canvas id="chart2"></canvas>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="chart-card">
+            <h6 class="text-center fw-bold mb-3">
+                TARGET VS REALISASI SETIAP DUSUN
+            </h6>
+            <canvas id="barChart"></canvas>
+        </div>
+    </div>
+
+</div>
+<div class="table-card mt-4">
+
+<div class="row mt-4">
+
+<div class="col-lg-12">
+
+<div class="chart-card position-relative">
+
+<div id="totalBulanan"
+style="
+position:absolute;
+right:20px;
+top:15px;
+border:2px solid none;
+padding:10px 18px;
+background:none;
+font-weight:bold;
+text-align:center;
+border-radius:8px;">
+</div>
+
+<h5 class="text-center fw-bold">
+PROGRES PEMBAYARAN PBB SETIAP BULAN
+</h5>
+
+<canvas id="chartBulanan" height="90"></canvas>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="my-4"></div>
+
+<h4>Data PBB Per Dusun Tahun 2026</h4>
+
+<table id="tbl" class="table table-bordered table-striped">
+
+<thead class="table-primary">
+<tr>
+<th>Dusun</th>
+<th>Target</th>
+<th>Realisasi</th>
+<th>Sisa</th>
+<th>SPPT Target</th>
+<th>SPPT Lunas</th>
+<th>SPPT Sisa</th>
+<th>% Uang</th>
+<th>Progress</th>
+</tr>
+</thead>
+
+<tbody></tbody>
+
+<tfoot class="table-success">
+<tr>
+<th>TOTAL</th>
+<th id="ftTarget"></th>
+<th id="ftRealisasi"></th>
+<th id="ftSisa"></th>
+<th id="ftSPPT"></th>
+<th id="ftLunas"></th>
+<th id="ftBelum"></th>
+<th id="ftPersen"></th>
+<th id="ftProgress"></th>
+</tr>
+</tfoot>
+
+</table>
+
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
+
+<script>
+
+const CSV_URL =
+'https://docs.google.com/spreadsheets/d/e/2PACX-1vS7sYdUZioU-xpPAw1tjyA6JJIrsWuoUnvYH1VXsh5KAJdTFrEOMhKXRPO-FjuvIUvLEwlmy1_BnUBi/pub?gid=26916754&single=true&output=csv';
+const CSV_BULANAN =
+'https://docs.google.com/spreadsheets/d/e/2PACX-1vS7sYdUZioU-xpPAw1tjyA6JJIrsWuoUnvYH1VXsh5KAJdTFrEOMhKXRPO-FjuvIUvLEwlmy1_BnUBi/pub?gid=1982162520&single=true&output=csv';
+
+function rp(nilai){
+return 'Rp ' + Number(nilai).toLocaleString('id-ID');
+}
+
+let donut1;
+let donut2;
+let barChart;
+let chartBulanan;
+
+function loadBulanan(){
+
+Papa.parse(CSV_BULANAN,{
+
+download:true,
+header:true,
+
+complete:function(result){
+
+const rows=result.data.filter(x=>x.Bulan);
+
+let bulan=[];
+let pemasukan=[];
+let total=0;
+
+rows.forEach(r=>{
+
+let nilai=parseInt(
+String(r.Pemasukan).replace(/\./g,'')
+)||0;
+
+bulan.push(r.Bulan);
+
+pemasukan.push(nilai);
+
+total+=nilai;
+
+});
+
+
+
+if(chartBulanan)
+chartBulanan.destroy();
+
+chartBulanan=new Chart(
+document.getElementById("chartBulanan"),
+{
+
+type:"line",
+
+data:{
+
+labels:bulan,
+
+datasets:[{
+
+label:"Pembayaran",
+
+data:pemasukan,
+
+borderColor:"#2b6cb0",
+
+backgroundColor:"rgba(43,108,176,.15)",
+
+fill:false,
+
+borderWidth:3,
+
+pointRadius:5,
+
+pointHoverRadius:8,
+
+tension:.25
+
+}]
+
+},
+
+options:{
+
+responsive:true,
+
+plugins:{
+legend:{
+display:false
+}
+},
+
+scales:{
+
+y:{
+
+ticks:{
+callback:function(value){
+return value.toLocaleString('id-ID');
+}
+}
+
+}
+
+}
+
+}
+
+});
+
+}
+
+});
+
+}
+
+function loadData(){
+
+Papa.parse(CSV_URL,{
+
+download:true,
+header:true,
+
+complete:function(result){
+
+const rows=result.data.filter(x=>x.Dusun);
+
+let totalTarget=0;
+let totalRealisasi=0;
+let totalSPPT=0;
+let totalLunas=0;
+
+let tbody='';
+
+let labels=[];
+let targetData=[];
+let realisasiData=[];
+
+rows.forEach(r=>{
+
+let target=parseInt(String(r.Target).replace(/\./g,''))||0;
+let realisasi=parseInt(String(r.Realisasi).replace(/\./g,''))||0;
+
+let spptTarget=parseInt(r.SPPT_Target)||0;
+let spptLunas=parseInt(r.SPPT_Lunas)||0;
+
+let sisa=target-realisasi;
+let spptSisa=spptTarget-spptLunas;
+
+let persen=((realisasi/target)*100).toFixed(2);
+
+totalTarget+=target;
+totalRealisasi+=realisasi;
+totalSPPT+=spptTarget;
+totalLunas+=spptLunas;
+
+labels.push(r.Dusun);
+targetData.push(target);
+realisasiData.push(realisasi);
+
+tbody+=`
+<tr>
+<td><b>${r.Dusun}</b></td>
+<td>${rp(target)}</td>
+<td>${rp(realisasi)}</td>
+<td class="text-danger">${rp(sisa)}</td>
+<td>${spptTarget}</td>
+<td class="text-success">${spptLunas}</td>
+<td>${spptSisa}</td>
+<td>${persen}%</td>
+<td>
+<div class="progress">
+<div class="progress-bar bg-danger"
+style="width:${persen}%">
+${persen}%
+</div>
+</div>
+</td>
+</tr>
+`;
+
+});
+
+document.querySelector("#tbl tbody").innerHTML=tbody;
+
+if($.fn.DataTable.isDataTable('#tbl')){
+$('#tbl').DataTable().destroy();
+}
+
+$('#tbl').DataTable();
+
+let totalSisa=totalTarget-totalRealisasi;
+
+let persenUang=((totalRealisasi/totalTarget)*100).toFixed(2);
+
+let persenSPPT=((totalLunas/totalSPPT)*100).toFixed(2);
+
+document.getElementById('ftTarget').innerHTML = rp(totalTarget);
+document.getElementById('ftRealisasi').innerHTML = rp(totalRealisasi);
+document.getElementById('ftSisa').innerHTML = rp(totalSisa);
+
+document.getElementById('ftSPPT').innerHTML = totalSPPT;
+document.getElementById('ftLunas').innerHTML = totalLunas;
+document.getElementById('ftBelum').innerHTML = totalSPPT-totalLunas;
+
+document.getElementById('ftPersen').innerHTML = persenUang + '%';
+
+document.getElementById('ftProgress').innerHTML =
+`
+<div class="progress">
+    <div class="progress-bar bg-success"
+         style="width:${persenUang}%">
+         ${persenUang}%
+    </div>
+</div>
+`;
+
+document.getElementById('totalTarget').innerHTML=rp(totalTarget);
+document.getElementById('totalRealisasi').innerHTML=rp(totalRealisasi);
+document.getElementById('totalSisa').innerHTML=rp(totalSisa);
+
+document.getElementById('persenUang').innerHTML=persenUang+'%';
+
+document.getElementById('totalSPPT').innerHTML=totalSPPT + ' <span class="satuan">lembar</span>';
+document.getElementById('spptLunas').innerHTML=totalLunas + ' <span class="satuan">lembar</span>';
+document.getElementById('spptBelum').innerHTML=totalSPPT-totalLunas + ' <span class="satuan">lembar</span>';
+document.getElementById('persenSPPT').innerHTML=persenSPPT+'%';
+
+if(donut1) donut1.destroy();
+
+donut1=new Chart(
+document.getElementById('chart1'),
+{
+type:'doughnut',
+data:{
+labels:['Terbayar','Belum'],
+datasets:[{
+data:[persenUang,100-persenUang]
+}]
+}
+});
+
+if(donut2) donut2.destroy();
+
+donut2=new Chart(
+document.getElementById('chart2'),
+{
+type:'doughnut',
+data:{
+labels:['Lunas','Belum'],
+datasets:[{
+data:[persenSPPT,100-persenSPPT]
+}]
+}
+});
+
+if(barChart) barChart.destroy();
+
+barChart=new Chart(
+document.getElementById('barChart'),
+{
+type:'bar',
+data:{
+labels:labels,
+datasets:[
+{
+label:'Target',
+data:targetData
+},
+{
+label:'Realisasi',
+data:realisasiData
+}
+]
+}
+});
+
+}
+});
+
+}
+
+setInterval(function(){
+document.getElementById("jam").innerHTML=
+new Date().toLocaleString("id-ID");
+},1000);
+
+loadData();
+loadBulanan();
+
+setInterval(loadData,300000);
+setInterval(loadBulanan,300000);
+
+</script>
+
+</body>
+</html>
