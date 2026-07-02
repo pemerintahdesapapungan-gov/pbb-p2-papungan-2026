@@ -8,9 +8,40 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <link href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css" rel="stylesheet">
 
 <style>
+
+.card-stat{
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+    padding: 20px;
+    min-height: 140px;
+    height: 100%;
+    box-shadow: 0 5px 15px rgba(0,0,0,.15);
+    position: relative;
+    overflow: hidden;
+}
+
+.card-content{
+    flex:1;
+    margin-left:80px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.card-content h6{
+    font-size:clamp(15px,1.2vw,20px);
+    margin-bottom:8px;
+}
+
+.card-content .nilai{
+    font-size:clamp(22px,2vw,36px);
+}
 
 .container-fluid{
     max-width:1800px;
@@ -19,16 +50,12 @@
 }
 
 .ranking-card{
-    width: 100%;
-    margin: 0;
-    background:linear-gradient(90deg,#ffd45a,#ff8a00);
+    background:linear-gradient(135deg,#ffb300,#ff6f00);
     border-radius:18px;
-    padding:28px;
-    text-align:center;
     color:#fff;
-    box-shadow:0 8px 25px rgba(0,0,0,.18);
-    margin-top:0px;
-    box-sizing:border-box;
+    padding:35px;
+    text-align:center;
+    box-shadow:0 8px 25px rgba(0,0,0,.25);
 }
 
 .ranking-card h2{
@@ -67,6 +94,7 @@
     justify-content:space-between;
     min-height:110px;
     width: auto;
+    box-shadow:0 8px 25px rgba(0,0,0,.18);
 }
 
 .judul-header{
@@ -93,28 +121,26 @@ body{
     font-family:Segoe UI, sans-serif;
 }
 
-.header-box{
-    background:linear-gradient(135deg,#0d6efd,#003b99);
-    color:white;
+.card-icon{
+    position:absolute;
+    left:20px;
+    top:50%;
+    transform:translateY(-50%);
+    width:60px;
+    height:60px;
     border-radius:15px;
-    padding:20px;
-    margin:15px 0;
-
-    
+    background:rgba(255,255,255,.18);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:30px;
+    color:#fff;
 }
 
-.card-stat{
-    border-radius:15px;
-    padding:18px 18px;
-    min-height:130px;
-    box-shadow:0 5px 15px rgba(0,0,0,.15);
-    margin-bottom:18px;
+.card-content h6{
+    margin-bottom:8px;
 }
-    .card-stat{
-    transition: transform 0.4s ease,
-                box-shadow 0.4s ease;
 
-    }
 .card-stat:hover{
     transform:none;
     box-shadow:0 12px 30px rgba(0,0,0,.25);
@@ -137,9 +163,14 @@ body{
 }
 
 .nilai{
-     font-size:2rem;
-     font-weight:700;
-     color: #f3f6fb;
+    font-size:clamp(18px,2vw,34px);
+    font-weight:bold;
+    line-height:1.2;
+    word-break:break-word;
+    color: #f3f6fb;
+    font-size:26px;
+    font-weight:bold;
+    font-size:22px;
 
 }
 
@@ -148,19 +179,21 @@ body{
     margin-bottom:10px;
 }
 
-.nilai{
-    font-size:26px;
-    font-weight:bold;
-}
-
 .chart-card{
-    background:white;
-    border-radius:12px;
+    background:#fff;
+    border-radius:15px;
     padding:20px;
-    box-shadow:0 3px 8px rgba(0,0,0,.08);
     height:100%;
+    min-height:430px;
+    display:flex;
+    flex-direction:column;
 }
 
+.chart-bulanan{
+    position:relative;
+    width:100%;
+    height:350px;
+}
 
 .progress{
     height:22px;
@@ -178,6 +211,46 @@ body{
 #tbl{
     width:100% !important;
 }
+
+.circle-box{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:320px;
+}
+
+.progress-circle{
+    width:220px;
+    height:220px;
+    border-radius:50%;
+    background:conic-gradient(#198754 0deg,#198754 0deg,#e9ecef 0deg);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+    transition:.8s;
+}
+
+.progress-circle::before{
+    content:"";
+    position:absolute;
+    width:170px;
+    height:170px;
+    background:#fff;
+    border-radius:50%;
+}
+
+.progress-text{
+    position:relative;
+    z-index:2;
+    text-align:center;
+    font-weight:bold;
+}
+
+.progress-text span{
+    display:block;
+    font-size:42px;
+    color:#198754;
 
 @media (max-width:768px){
 
@@ -201,14 +274,6 @@ body{
         height:55px;
     }
 
-    .card-stat{
-        min-height:auto;
-    }
-
-    .nilai{
-        font-size:22px;
-    }
-
     .ranking-number{
         font-size:48px;
     }
@@ -217,13 +282,86 @@ body{
         font-size:16px;
     }
 
-    .chart-card{
-        padding:12px;
-    }
-
     table{
         font-size:13px;
     }
+}
+
+canvas{
+    width:100% !important;
+}
+
+.ranking-number{
+    font-size:80px;
+    font-weight:bold;
+}
+
+table.dataTable tbody tr:hover{
+    background:#f1f7ff;
+}
+
+.progress-text{
+
+    position:relative;
+
+    z-index:5;
+
+    text-align:center;
+
+}
+
+.progress-text span{
+
+    font-size:42px;
+
+    font-weight:bold;
+
+    color:#198754;
+
+}
+
+.progress-text small{
+
+    font-size:16px;
+
+    color:#666;
+
+}
+
+/* ===========================
+   Animasi Card
+=========================== */
+
+.fade-card{
+
+    opacity:0;
+
+    transform:translateY(40px);
+
+    transition:
+        opacity .8s ease,
+        transform .8s ease;
+
+}
+
+.fade-card.show{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+@media (max-width:768px){
+
+    .chart-card{
+        min-height:320px;
+    }
+
+    .chart-bulanan{
+        height:250px;
+    }
+
 }
 
 </style>
@@ -252,66 +390,129 @@ body{
 
 <div class="row g-3">
 
-<div class="col-md-3">
-<div class="card-stat bg-target">
-<h6>Total Target Pajak</h6>
-<div class="nilai" id="totalTarget">Rp 0</div>
-</div>
+<div class="col-12 col-sm-6 col-lg-3">
+    <div class="card-stat bg-target fade-card">
+
+        <div class="card-icon">
+            <i class="bi bi-bullseye"></i>
+        </div>
+
+        <div class="card-content">
+            <h6>Total Target Pajak</h6>
+            <div class="nilai" id="totalTarget">Rp 0</div>
+        </div>
+
+    </div>
 </div>
 
-<div class="col-md-3">
-<div class="card-stat bg-realisasi">
-<h6>Total Terbayar</h6>
-<div class="nilai" id="totalRealisasi">Rp 0</div>
-</div>
+<div class="col-12 col-sm-6 col-lg-3">
+    <div class="card-stat bg-realisasi fade-card">
+
+        <div class="card-icon">
+            <i class="bi bi-wallet2"></i>
+        </div>
+
+        <div class="card-content">
+            <h6>Total Terbayar</h6>
+            <div class="nilai" id="totalRealisasi">Rp 0</div>
+        </div>
+
+    </div>
 </div>
 
-<div class="col-md-3">
-<div class="card-stat bg-sisa">
-<h6>Total Belum Terbayar</h6>
-<div class="nilai" id="totalSisa">Rp 0</div>
-</div>
+<div class="col-12 col-sm-6 col-lg-3">
+    <div class="card-stat bg-sisa fade-card">
+
+        <div class="card-icon">
+            <i class="bi bi-file-earmark-x"></i>
+        </div>
+
+        <div class="card-content">
+            <h6>Total Belum Terbayar</h6>
+            <div class="nilai" id="totalSisa">Rp 0</div>
+        </div>
+
+    </div>
 </div>
 
-<div class="col-md-3">
-<div class="card-stat bg-persen">
-<h6>Persentase Pembayaran</h6>
-<div class="nilai" id="persenUang">0%</div>
-</div>
+<div class="col-12 col-sm-6 col-lg-3">
+    <div class="card-stat bg-persen fade-card">
+
+        <div class="card-icon">
+            <i class="bi bi-pie-chart-fill"></i>
+        </div>
+
+        <div class="card-content">
+            <h6>Persentase Pembayaran</h6>
+            <div class="nilai" id="persenUang">0%</div>
+        </div>
+
+    </div>
 </div>
 
-<div class="col-md-3">
-<div class="card-stat bg-sppt">
-<h6>Total SPPT</h6>
-<div class="nilai" id="totalSPPT">0</div>
-</div>
+<div class="col-12 col-sm-6 col-lg-3">
+    <div class="card-stat bg-sppt fade-card">
+
+        <div class="card-icon">
+            <i class="bi bi-file-earmark-text-fill"></i>
+        </div>
+
+        <div class="card-content">
+            <h6>Total SPPT</h6>
+            <div class="nilai" id="totalSPPT">0</div>
+        </div>
+
+    </div>
 </div>
 
-<div class="col-md-3">
-<div class="card-stat bg-lunas">
-<h6>SPPT Lunas</h6>
-<div class="nilai" id="spptLunas">0</div>
-</div>
+<div class="col-12 col-sm-6 col-lg-3">
+    <div class="card-stat bg-lunas fade-card">
+
+        <div class="card-icon">
+            <i class="bi bi-clipboard-check-fill"></i>
+        </div>
+
+        <div class="card-content">
+            <h6>SPPT Lunas</h6>
+            <div class="nilai" id="spptLunas">0</div>
+        </div>
+
+    </div>
 </div>
 
-<div class="col-md-3">
-<div class="card-stat bg-belum">
-<h6>SPPT Belum Lunas</h6>
-<div class="nilai" id="spptBelum">0</div>
-</div>
+<div class="col-12 col-sm-6 col-lg-3">
+    <div class="card-stat bg-belum fade-card">
+
+        <div class="card-icon">
+            <i class="bi bi-file-earmark-x-fill"></i>
+        </div>
+
+        <div class="card-content">
+            <h6>SPPT Belum Lunas</h6>
+            <div class="nilai" id="spptBelum">0</div>
+        </div>
+
+    </div>
 </div>
 
-<div class="col-md-3">
-<div class="card-stat bg-persensppt">
-<h6>Persentase SPPT</h6>
-<div class="nilai" id="persenSPPT">0%</div>
-</div>
-</div>
+<div class="col-12 col-sm-6 col-lg-3">
+    <div class="card-stat bg-persensppt fade-card">
+
+        <div class="card-icon">
+            <i class="bi bi-percent"></i>
+        </div>
+
+        <div class="card-content">
+            <h6>Persentase SPPT</h6>
+            <div class="nilai" id="persenSPPT">0%</div>
+        </div>
+
+    </div>
 </div>
 
-<div class="row mt-3">
+
     <div class="col-12">
-        <div class="ranking-card">
+        <div class="ranking-card fade-card">
             <h2>PERINGKAT DESA PAPUNGAN TAHUN 2026</h2>
 
             <div class="ranking-number">
@@ -323,30 +524,58 @@ body{
             </div>
         </div>
     </div>
-</div>
+
 
 <div class="row mt-4 g-3">
 
-    <div class="col-lg-3">
-        <div class="chart-card">
+    <div class="col-12 col-md-6 col-lg-3">
+        <div class="chart-card fade-card">
             <h6 class="text-center fw-bold mb-3">
                 PERSENTASE REALISASI PEMBAYARAN PBB-P2 DESA PAPUNGAN TAHUN 2026
             </h6>
-            <canvas id="chart1"></canvas>
+           <div class="circle-box">
+
+    <div class="progress-circle" id="circle1">
+
+        <div class="progress-text">
+
+            <span id="circlePersen1">0%</span>
+
+            <small>Pembayaran</small>
+
+        </div>
+
+    </div>
+
+</div>
         </div>
     </div>
 
-    <div class="col-lg-3">
-        <div class="chart-card">
+    <div class="col-12 col-md-6 col-lg-3">
+        <div class="chart-card fade-card">
             <h6 class="text-center fw-bold mb-3">
                 PERSENTASE REALISASI SPPT PEMBAYARAN PBB-P2 DESA PAPUNGAN TAHUN 2026
             </h6>
-            <canvas id="chart2"></canvas>
+          <div class="circle-box">
+
+    <div class="progress-circle" id="circle2">
+
+        <div class="progress-text">
+
+            <span id="circlePersen2">0%</span>
+
+            <small>SPPT</small>
+
+        </div>
+
+    </div>
+
+</div>  
         </div>
     </div>
 
-    <div class="col-lg-6">
-        <div class="chart-card">
+    <div class="col-12 col-lg-6">
+        <div class="chart-card fade-card">
             <h6 class="text-center fw-bold mb-3">
                 TARGET VS REALISASI SETIAP DUSUN
             </h6>
@@ -380,7 +609,9 @@ border-radius:8px;">
 PROGRES PEMBAYARAN PBB-P2 SETIAP BULAN
 </h5>
 
-<canvas id="chartBulanan" height="90"></canvas>
+<div class="chart-bulanan">
+    <canvas id="chartBulanan"></canvas>
+</div>
 
 </div>
 
@@ -454,8 +685,6 @@ function rp(nilai){
 return 'Rp ' + Number(nilai).toLocaleString('id-ID');
 }
 
-let donut1;
-let donut2;
 let barChart;
 let chartBulanan;
 
@@ -493,6 +722,12 @@ total+=nilai;
 if(chartBulanan)
 chartBulanan.destroy();
 
+let rotasi = 0;
+
+if (window.innerWidth <= 768) {
+    rotasi = 45;
+}
+
 chartBulanan=new Chart(
 document.getElementById("chartBulanan"),
 {
@@ -528,28 +763,57 @@ tension:.25
 },
 
 options:{
+    animation:{
 
-responsive:true,
+    x:{
 
-plugins:{
-legend:{
-display:false
-}
+        duration:1000
+
+    },
+
+    y:{
+
+        from:0,
+
+        duration:2000,
+
+        easing:'easeOutQuart'
+
+    }
+
 },
 
-scales:{
+    responsive:true,
+    maintainAspectRatio:false,
 
-y:{
+    plugins:{
+        legend:{
+            display:false
+        }
+    },
 
-ticks:{
-callback:function(value){
-return value.toLocaleString('id-ID');
-}
-}
+    scales:{
 
-}
+        x:{
+            ticks:{
+                autoSkip:false,
+                maxRotation: rotasi,
+                minRotation: rotasi
+            }
+        },
 
-}
+        y:{
+            beginAtZero:true,
+
+            ticks:{
+                callback:function(value){
+                    return value.toLocaleString('id-ID');
+                }
+            }
+
+        }
+
+    }
 
 }
 
@@ -560,6 +824,8 @@ return value.toLocaleString('id-ID');
 });
 
 }
+
+
 
 function loadData(){
 
@@ -665,44 +931,102 @@ document.getElementById('ftProgress').innerHTML =
 </div>
 `;
 
-document.getElementById('totalTarget').innerHTML=rp(totalTarget);
-document.getElementById('totalRealisasi').innerHTML=rp(totalRealisasi);
-document.getElementById('totalSisa').innerHTML=rp(totalSisa);
+animateValue(
+'totalTarget',
+0,
+totalTarget,
+2000,
+'Rp ',
+'',
+0
+);
 
-document.getElementById('persenUang').innerHTML=persenUang+'%';
+animateValue(
+'totalRealisasi',
+0,
+totalRealisasi,
+2000,
+'Rp ',
+'',
+0
+);
 
-document.getElementById('totalSPPT').innerHTML=totalSPPT + ' <span class="satuan">lembar</span>';
-document.getElementById('spptLunas').innerHTML=totalLunas + ' <span class="satuan">lembar</span>';
-document.getElementById('spptBelum').innerHTML=totalSPPT-totalLunas + ' <span class="satuan">lembar</span>';
-document.getElementById('persenSPPT').innerHTML=persenSPPT+'%';
+animateValue(
+'totalSisa',
+0,
+totalSisa,
+2000,
+'Rp ',
+'',
+0
+);
 
-if(donut1) donut1.destroy();
+animateValue(
+'persenUang',
+0,
+parseFloat(persenUang),
+1500,
+'',
+'%',
+2
+);
 
-donut1=new Chart(
-document.getElementById('chart1'),
-{
-type:'doughnut',
-data:{
-labels:['Terbayar','Belum'],
-datasets:[{
-data:[persenUang,100-persenUang]
-}]
-}
-});
+animateValue(
+'totalSPPT',
+0,
+totalSPPT,
+1500,
+'',
+' Lembar',
+0
+);
 
-if(donut2) donut2.destroy();
+animateValue(
+'spptLunas',
+0,
+totalLunas,
+1500,
+'',
+' Lembar',
+0
+);
 
-donut2=new Chart(
-document.getElementById('chart2'),
-{
-type:'doughnut',
-data:{
-labels:['Lunas','Belum'],
-datasets:[{
-data:[persenSPPT,100-persenSPPT]
-}]
-}
-});
+animateValue(
+'spptBelum',
+0,
+totalSPPT-totalLunas,
+1500,
+'',
+' Lembar',
+0
+);
+
+animateValue(
+'persenSPPT',
+0,
+parseFloat(persenSPPT),
+1500,
+'',
+'%',
+2
+);
+
+animateCircle(
+    "circle1",
+    "circlePersen1",
+    parseFloat(persenUang),
+    "#198754"
+);
+
+animateCircle(
+    "circle2",
+    "circlePersen2",
+    parseFloat(persenSPPT),
+    "#0d6efd"
+);
+
+
+
 
 if(barChart) barChart.destroy();
 
@@ -722,7 +1046,7 @@ label:'Realisasi',
 data:realisasiData
 }
 ]
-}
+},
 });
 
 }
@@ -735,7 +1059,102 @@ document.getElementById("jam").innerHTML=
 new Date().toLocaleString("id-ID");
 },1000);
 
+function animateValue(
+    id,
+    start,
+    end,
+    duration,
+    prefix = "",
+    suffix = "",
+    decimal = 0
+){
+
+    const obj = document.getElementById(id);
+
+    const startTime = performance.now();
+
+    function update(currentTime){
+
+        const progress = Math.min((currentTime - startTime) / duration,1);
+
+        const value = start + ((end - start) * progress);
+
+        obj.innerHTML =
+            prefix +
+            Number(value).toLocaleString('id-ID',{
+                minimumFractionDigits: decimal,
+                maximumFractionDigits: decimal
+            }) +
+            suffix;
+
+        if(progress < 1){
+            requestAnimationFrame(update);
+        }
+
+    }
+
+    requestAnimationFrame(update);
+
+}
+
+function animateCircle(circleId, textId, targetPersen, color){
+
+    const circle = document.getElementById(circleId);
+    const text = document.getElementById(textId);
+
+    let current = 0;
+
+    const interval = setInterval(function(){
+
+        current += targetPersen / 100;
+
+        if(current >= targetPersen){
+
+            current = targetPersen;
+
+            clearInterval(interval);
+
+        }
+
+        let degree = current * 3.6;
+
+        circle.style.background =
+        `conic-gradient(
+            ${color} ${degree}deg,
+            #eeeeee ${degree}deg
+        )`;
+
+        text.innerHTML =
+        current.toLocaleString('id-ID',{
+            minimumFractionDigits:2,
+            maximumFractionDigits:2
+        }) + "%";
+
+    },10);
+
+}
+
+function showCards(){
+
+    const cards =
+    document.querySelectorAll(".fade-card");
+
+    cards.forEach(function(card,index){
+
+        setTimeout(function(){
+
+            card.classList.add("show");
+
+        },index * 200);
+
+    });
+
+}
+
+showCards();
+
 loadData();
+
 loadBulanan();
 
 setInterval(loadData,300000);
