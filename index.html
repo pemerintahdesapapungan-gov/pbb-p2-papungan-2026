@@ -14,6 +14,38 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
 
 <style>
 
+.ranking-number{
+
+font-size:80px;
+
+font-weight:bold;
+
+animation:pulse 2s infinite;
+
+}
+
+@keyframes pulse{
+
+0%{
+
+transform:scale(1);
+
+}
+
+50%{
+
+transform:scale(1.1);
+
+}
+
+100%{
+
+transform:scale(1);
+
+}
+
+}
+
 :root{
     --jarak:20px;
 }
@@ -554,16 +586,23 @@ table.dataTable tbody tr:hover{
 
     <div class="col-12">
         <div class="ranking-card fade-card">
-            <h2>PERINGKAT DESA PAPUNGAN TAHUN 2026</h2>
+            <div class="ranking-card fade-card">
 
-            <div class="ranking-number">
-                🏆 3 🏆
-            </div>
+    <h2>PERINGKAT DESA PAPUNGAN TAHUN 2026</h2>
 
-            <div class="ranking-desc">
-                dari 12 Desa se-Kecamatan Kanigoro Kabupaten Blitar
-            </div>
-        </div>
+    <div
+        class="ranking-number"
+        id="rankingNumber">
+        🏆 -
+    </div>
+
+    <div
+        class="ranking-desc"
+        id="rankingDesc">
+        Memuat data...
+    </div>
+
+</div>
     </div>
     </div>
     
@@ -713,6 +752,8 @@ const CSV_URL =
 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS7sYdUZioU-xpPAw1tjyA6JJIrsWuoUnvYH1VXsh5KAJdTFrEOMhKXRPO-FjuvIUvLEwlmy1_BnUBi/pub?gid=26916754&single=true&output=csv';
 const CSV_BULANAN =
 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS7sYdUZioU-xpPAw1tjyA6JJIrsWuoUnvYH1VXsh5KAJdTFrEOMhKXRPO-FjuvIUvLEwlmy1_BnUBi/pub?gid=1982162520&single=true&output=csv';
+const CSV_RANKING =
+'https://docs.google.com/spreadsheets/d/e/2PACX-1vS7sYdUZioU-xpPAw1tjyA6JJIrsWuoUnvYH1VXsh5KAJdTFrEOMhKXRPO-FjuvIUvLEwlmy1_BnUBi/pub?gid=2047369814&single=true&output=csv';
 
 function rp(nilai){
 return 'Rp ' + Number(nilai).toLocaleString('id-ID');
@@ -851,6 +892,64 @@ options:{
 }
 
 });
+
+}
+
+});
+
+}
+
+function loadRanking(){
+
+Papa.parse(CSV_RANKING,{
+
+download:true,
+
+header:true,
+
+complete:function(result){
+
+const data=result.data;
+
+if(data.length==0)return;
+
+const row=data[0];
+
+const ranking=row.Ranking;
+
+const total=row.Total_Desa;
+
+let medal="🏅";
+
+if(ranking==1){
+
+medal="🥇";
+
+}
+
+else if(ranking==2){
+
+medal="🥈";
+
+}
+
+else if(ranking==3){
+
+medal="🥉";
+
+}
+
+else{
+
+medal="🏅";
+
+}
+
+document.getElementById("rankingNumber").innerHTML=
+medal+" "+ranking;
+
+document.getElementById("rankingDesc").innerHTML=
+"dari "+total+" Desa se-Kecamatan Kanigoro Kabupaten Blitar";
 
 }
 
@@ -1193,8 +1292,11 @@ loadData();
 
 loadBulanan();
 
+loadRanking();
+
 setInterval(loadData,300000);
 setInterval(loadBulanan,300000);
+setInterval(loadRanking,300000);
 
 </script>
 
